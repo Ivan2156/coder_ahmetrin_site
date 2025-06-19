@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeonCoder | Разработчик Telegram ботов и сайтов</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0f0f1a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .neon-text {
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 8px var(--neon-color), 0 0 16px var(--neon-color), 0 0 24px var(--neon-color);
+            animation: neon-pulse 1.5s infinite alternate ease-in-out, rgb-cycle 15s infinite linear;
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 8px var(--neon-color), 0 0 16px var(--neon-color), inset 0 0 8px var(--neon-color);
+            border: 2px solid var(--neon-color);
+            animation: border-pulse 2s infinite alternate ease-in-out, rgb-cycle 15s infinite linear;
+        }
+        :root {
+            --neon-color: #00f2ff;
+        }
+        @keyframes neon-pulse {
+            from {
+                text-shadow: 0 0 8px var(--neon-color), 0 0 16px var(--neon-color);
+            }
+            to {
+                text-shadow: 0 0 12px var(--neon-color), 0 0 24px var(--neon-color), 0 0 36px var(--neon-color);
+            }
+        }
+        @keyframes border-pulse {
+            from {
+                box-shadow: 0 0 8px var(--neon-color), 0 0 16px var(--neon-color), inset 0 0 8px var(--neon-color);
+            }
+            to {
+                box-shadow: 0 0 12px var(--neon-color), 0 0 24px var(--neon-color), inset 0 0 12px var(--neon-color);
+            }
+        }
+        @keyframes rgb-cycle {
+            0% { --neon-color: #ff0000; } /* Червоний */
+            16% { --neon-color: #ff8000; } /* Помаранчевий */
+            32% { --neon-color: #ffff00; } /* Жовтий */
+            48% { --neon-color: #00ff00; } /* Зелений */
+            64% { --neon-color: #00ffff; } /* Блакитний */
+            80% { --neon-color: #8000ff; } /* Фіолетовий */
+            96% { --neon-color: #ff0080; } /* Рожевий */
+            100% { --neon-color: #ff0000; } /* Повернення до червоного */
+        }
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px var(--neon-box-shadow);
+            animation: rgb-cycle 15s infinite linear;
+        }
+        .neon-button:hover {
+            box-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color), 0 0 30px var(--neon-color);
+            transform: translateY(-2px);
+            animation: rgb-cycle 12s infinite linear;
+        }
+        .floating-neon {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out, rgb-cycle 25s infinite linear;
+            z-index: -1;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .neon-button {
+            transition: all 0.3s ease;
+        }
+        
+        .neon-button:hover {
+            box-shadow: 0 0 10px #00f2ff, 0 0 20px #00f2ff, 0 0 30px #00f2ff;
+            transform: translateY(-2px);
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #8000ff, #ff0080);
+            background-size: 700% 100%;
+            animation: gradient-flow 10s infinite linear;
+            border-radius: 5px;
+        }
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.5);
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(0, 242, 255, 0) 0%,
+                rgba(0, 242, 255, 0.1) 50%,
+                rgba(0, 242, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+        
+        .project-card:hover::before {
+            animation: shine 1.5s;
+            opacity: 1;
+        }
+        
+        @keyframes shine {
+            0% {
+                left: -50%;
+                top: -50%;
+            }
+            100% {
+                left: 150%;
+                top: 150%;
+            }
+        }
+        
+        .bg-grid {
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: grid-cycle 20s infinite linear;
+        }
+        @keyframes grid-cycle {
+            0% { --grid-color: rgba(255, 0, 0, 0.05); }
+            16% { --grid-color: rgba(255, 128, 0, 0.05); }
+            32% { --grid-color: rgba(255, 255, 0, 0.05); }
+            48% { --grid-color: rgba(0, 255, 0, 0.05); }
+            64% { --grid-color: rgba(0, 255, 255, 0.05); }
+            80% { --grid-color: rgba(128, 0, 255, 0.05); }
+            96% { --grid-color: rgba(255, 0, 128, 0.05); }
+            100% { --grid-color: rgba(255, 0, 0, 0.05); }
+        }
+    </style>
+</head>
+<body class="bg-grid">
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-30 z-0"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-full h-full bg-gradient-radial from-blue-900/20 via-transparent to-transparent opacity-50"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 z-10">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 neon-text">NeonCoder</h1>
+                <h2 class="text-2xl md:text-3xl mb-8 text-blue-300">Разработчик Telegram ботов, сайтов и скриптов</h2>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10 text-gray-300">
+                    Готов взяться за любую работу! От простых скриптов до сложных Telegram ботов и веб-приложений.
+                </p>
+                <a href="#contact" class="inline-block px-8 py-4 bg-transparent neon-border text-blue-300 font-bold rounded-full neon-button text-lg">
+                    Связаться со мной
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 bg-black/50 backdrop-blur-sm">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-16 text-center neon-text">Обо мне</h2>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <div class="p-8 neon-border rounded-xl bg-black/30">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-300">AhmetRin</h3>
+                        <p class="text-gray-300 mb-6">
+                            Привет! Я профессиональный разработчик с опытом создания Telegram ботов, веб-сайтов и различных скриптов.
+                            Работаю круглосуточно и готов взяться за проекты любой сложности.
+                        </p>
+                        <p class="text-gray-300">
+                            Моя цель - предоставить качественные решения, которые помогут вашему бизнесу или проекту.
+                            Гарантирую индивидуальный подход к каждому клиенту и соблюдение сроков.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="p-8 neon-border rounded-xl bg-black/30">
+                        <h3 class="text-2xl font-bold mb-6 text-blue-300">Мои навыки</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">Python (Telegram боты/скрипты)</span>
+                                    <span class="text-blue-300">100%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress w-full"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">JavaScript (сайты)</span>
+                                    <span class="text-blue-300">50%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress w-1/2"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">API</span>
+                                    <span class="text-blue-300">60%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress w-3/5"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">HTML/CSS</span>
+                                    <span class="text-blue-300">90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress w-9/10"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="py-20 bg-black/50 backdrop-blur-sm">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-16 text-center neon-text">Мои проекты</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-black/30 p-6 rounded-xl neon-border relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-blue-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="mb-4">
+                        <i class="fab fa-telegram text-4xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-blue-300">Бот для продажи игровой валюты</h3>
+                    <p class="text-gray-300 mb-4">
+                        Полностью автоматизированный Telegram бот для продажи игровой валюты с интеграцией платежных систем.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm">Python</span>
+                        <span class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm">HTML/CSS</span>
+                        <span class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm">JavaScript</span>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card bg-black/30 p-6 rounded-xl neon-border">
+                    <div class="mb-4">
+                        <i class="fas fa-robot text-4xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-blue-300">Бот для работы с финансами</h3>
+                    <p class="text-gray-300 mb-4">
+                        Умный бот для учета личных финансов, анализа расходов и планирования бюджета.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm">Python</span>
+                        <span class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm">API</span>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-black/30 p-6 rounded-xl neon-border">
+                    <div class="mb-4">
+                        <i class="fas fa-comments-dollar text-4xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-blue-300">Бот для криптовалют</h3>
+                    <p class="text-gray-300 mb-4">
+                        Бот для отслеживания курсов криптовалют, уведомлений о важных изменениях и анализа рынка.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm">Python</span>
+                        <span class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm">API</span>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card bg-black/30 p-6 rounded-xl neon-border">
+                    <div class="mb-4">
+                        <i class="fas fa-tools text-4xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-blue-300">Бот для автоматизации</h3>
+                    <p class="text-gray-300 mb-4">
+                        Многофункциональный бот для автоматизации рутинных задач и интеграции с различными сервисами.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm">Python</span>
+                        <span class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-black/50 backdrop-blur-sm">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-16 text-center neon-text">Связаться со мной</h2>
+            
+            <div class="max-w-2xl mx-auto bg-black/30 p-8 rounded-xl neon-border">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-300">Хотите заказать услугу?</h3>
+                    <p class="text-gray-300 mb-6">Пишите мне в Telegram - отвечаю быстро и работаю круглосуточно!</p>
+                    <a href="https://t.me/ahmetrin" target="_blank" class="inline-flex items-center px-8 py-4 bg-transparent neon-border text-white font-bold rounded-full neon-button text-xl hover:bg-blue-900/30 transition-all duration-300">
+                        <i class="fab fa-telegram mr-3 text-2xl"></i> Написать в Telegram
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-6 bg-black/20 rounded-lg neon-border">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-clock text-2xl text-blue-400 mr-3"></i>
+                            <h4 class="text-xl font-bold text-blue-300">Часы работы</h4>
+                        </div>
+                        <p class="text-gray-300">Круглосуточно, без выходных</p>
+                    </div>
+                    
+                    <div class="p-6 bg-black/20 rounded-lg neon-border">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-bolt text-2xl text-blue-400 mr-3"></i>
+                            <h4 class="text-xl font-bold text-blue-300">Скорость ответа</h4>
+                        </div>
+                        <p class="text-gray-300">Обычно отвечаю в течение 5-15 минут</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 bg-black/80 backdrop-blur-sm">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-3xl font-bold neon-text">AhmetRin</h2>
+                    <p class="text-gray-400 mt-2">Разработка Telegram ботов и веб-приложений</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://t.me/ahmetrin" target="_blank" class="text-2xl text-blue-400 hover:text-blue-300 transition-colors">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500">
+                <p>&copy; 2023 NeonCoder. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating neon elements -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <div class="floating-neon top-[20%] left-[15%] w-[200px] h-[200px]"></div>
+        <div class="floating-neon top-[60%] left-[30%] w-[300px] h-[300px] animation-delay-2000"></div>
+        <div class="floating-neon top-[30%] right-[20%] w-[250px] h-[250px] animation-delay-4000"></div>
+        <div class="floating-neon bottom-[20%] right-[30%] w-[180px] h-[180px] animation-delay-6000"></div>
+        <div class="floating-neon top-[10%] right-[10%] w-[150px] h-[150px] animation-delay-8000"></div>
+        <div class="floating-neon bottom-[10%] left-[10%] w-[220px] h-[220px] animation-delay-10000"></div>
+    </div>
+
+    <!-- Glow effect under cursor -->
+    <div id="cursor-glow" class="fixed w-64 h-64 rounded-full bg-blue-500 opacity-10 blur-[80px] pointer-events-none transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
+
+    <script>
+        // Cursor glow follow effect
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.getElementById('cursor-glow');
+            glow.style.left = `${e.clientX}px`;
+            glow.style.top = `${e.clientY}px`;
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=ahmetrin/ahmetrin-coder" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
